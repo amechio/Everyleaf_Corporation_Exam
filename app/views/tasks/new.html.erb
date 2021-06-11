@@ -1,0 +1,12 @@
+<h1>タスク登録</h1>
+<%= form_with( model: @task, local: true ) do |f| %>
+  <div class="task_title">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="task_details">
+    <%= f.label :details %><br>
+    <%= f.text_area :details %>
+  </div>
+  <%= f.submit %>
+<% end %>
