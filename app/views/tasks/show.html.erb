@@ -1,3 +1,5 @@
 <h1>タスク詳細</h1>
 <p>タスク名:<%= @task.title %></p>
 <p>内容:<%= @task.details %></p>
+| <%= link_to "タスク一覧", tasks_path %> |
+<%= link_to "新規作成", new_task_path %> |
