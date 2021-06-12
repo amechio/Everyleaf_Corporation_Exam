@@ -17,5 +17,6 @@ module TaskManagement
                       routing_specs: false,
                       conntroller_specs: false,
                       request_specs: false
+    end
   end
 end
