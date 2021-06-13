@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 #Rubyはver2.6.5を使用します。
-ruby '2.6.5'
+#ruby '2.6.5'
 
 gem 'rails', '5.2.5'
 
