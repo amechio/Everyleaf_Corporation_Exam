@@ -2,13 +2,15 @@
 <p><%= notice %></p>
 <table>
   <tr>
-    <th>タスク名</th>
-    <th>内容</th>
+    <th><%= t('view.task') %></th>
+    <th><%= t('view.details') %></th>
+    <th>作成日時</th>
   </tr>
   <% @tasks.each do |task| %>
   <tr>
     <td><%= task.title %></td>
     <td><%= task.details %></td>
+    <td><%= l task.created_at %>
     <td><%= link_to "詳細", task_path(task.id) %></td>
     <td><%= link_to "編集", edit_task_path(task.id) %></td>
     <td><%= link_to "削除", task_path(task.id), method: :delete, data: { confirm: "本当に削除しますか？" } %></td>
