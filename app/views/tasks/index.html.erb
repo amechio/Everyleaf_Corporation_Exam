@@ -4,13 +4,15 @@
   <tr>
     <th><%= t('view.task') %></th>
     <th><%= t('view.details') %></th>
-    <th>作成日時</th>
+    <th><%= t('view.limit') %></th>
+    <th><%= t('view.created_date') %></th>
   </tr>
   <% @tasks.each do |task| %>
   <tr>
     <td><%= task.title %></td>
     <td><%= task.details %></td>
-    <td><%= l task.created_at %>
+    <td><%= task.limit %></td>
+    <td><%= l task.created_at %></td>
     <td><%= link_to "詳細", task_path(task.id) %></td>
     <td><%= link_to "編集", edit_task_path(task.id) %></td>
     <td><%= link_to "削除", task_path(task.id), method: :delete, data: { confirm: "本当に削除しますか？" } %></td>

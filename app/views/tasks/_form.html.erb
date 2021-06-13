@@ -17,5 +17,9 @@
     <%= f.label :details %><br>
     <%= f.text_area :details %>
   </div>
+  <div class="task_limit">
+    <%= f.label :limit %>
+    <%= f.datetime_select :limit %>
+  </div>
   <%= f.submit '登録する' %>
 <% end %>

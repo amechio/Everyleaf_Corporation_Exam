@@ -3,6 +3,8 @@ ja:
   view:
     task: タスク名
     details: 内容
+    created_date: 作成日
+    limit: 終了期限
   activerecord:
     errors:
       messages:

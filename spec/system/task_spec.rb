@@ -15,6 +15,11 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content 'details'
       end
     end
+    context 'タスクを新規作成した場合' do
+      it '終了期限が登録できる' do
+        visit new_task_path
+      end
+    end
   end
   describe '一覧表示機能' do
     context '一覧画面に遷移した場合' do

@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2021_06_13_115427) do
     t.text "details", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "limit"
+    t.date "limit", default: -> { "now()" }, null: false
   end
 
 end
