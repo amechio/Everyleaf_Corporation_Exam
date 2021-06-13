@@ -3,10 +3,12 @@ ja:
     models:
       task: タスク
       user: ユーザー
+      limit: 終了期限
     attributes:
       task:
         title: タスク名
         details: 内容
+        limit: 終了期限
       user:
         title: タスク名
         name: 名前

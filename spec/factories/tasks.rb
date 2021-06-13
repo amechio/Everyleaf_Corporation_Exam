@@ -2,6 +2,6 @@ FactoryBot.define do
   factory :task do
     title { 'task' }
     details { 'test' }
-    limit { DateTime }
+    limit { '2021-06-20' }
   end
 end
