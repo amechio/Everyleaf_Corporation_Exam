@@ -9,9 +9,9 @@
   </tr>
   <% @tasks.each do |task| %>
   <tr>
-    <td><%= task.title %></td>
+    <td class="task_name"><%= task.title %></td>
     <td><%= task.details %></td>
-    <td><%= task.limit %></td>
+    <td class="task_limit"><%= task.limit %></td>
     <td><%= l task.created_at %></td>
     <td><%= link_to "詳細", task_path(task.id) %></td>
     <td><%= link_to "編集", edit_task_path(task.id) %></td>

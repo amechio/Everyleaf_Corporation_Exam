@@ -1,6 +1,7 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
-  let!(:task) { FactoryBot.create(:task, title: "task", details: 'test', limit: '2021-06-20') }
+  let!(:task) { FactoryBot.create(:task) }
+  let!(:second_task) { FactoryBot.create(:second_task) }
   before do
     visit tasks_path
   end
@@ -35,16 +36,17 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
     context 'タスクが作成日時の降順に並んでいる場合' do
       it '新しいタスクが一番上に表示される' do
-        task_list = all('table tr')[1]
-        expect(task_list).to have_content 'task'
-        expect(task_list).to have_content 'test'
+        task_list = all('.task_name')
+        expect(task_list[0]).to have_content 'task2'
+        expect(task_list[1]).to have_content 'task'
       end
     end
     context 'タスクをソートした場合' do
       it '終了期限が降順で並び替えられる' do
         click_on '終了期限でソートする'
-        task_limit = all('table tr')[1]
-        expect(task_limit).to have_content '2021-06-20'
+        task_limit = all('.task_limit')
+        expect(task_limit[0]).to have_content '2021-06-20'
+        expect(task_limit[1]).to have_content '2021-06-18'
       end
     end
   end
