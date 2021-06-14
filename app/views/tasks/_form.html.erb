@@ -21,5 +21,8 @@
     <%= f.label :limit %><br>
     <%= f.text_field :limit %>
   </div>
+  <div class="status">
+    <%= f.select :status, options_for_select(Task.statuses) %>
+  </div>
   <%= f.submit '登録する' %>
 <% end %>

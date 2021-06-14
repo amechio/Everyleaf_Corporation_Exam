@@ -1,11 +1,16 @@
 <h1>タスク一覧</h1>
 <p><%= notice %></p>
 <%= form_with( model: @task, local: true, url: tasks_path, method: 'get' ) do |f| %>
-  <div class="search_form">
+  <div class="search_for_title">
     <%= f.label :title, 'タスク名で検索する' %>
     <%= f.text_field :title %>
-    <%= f.submit '検索する' %> | <%= f.submit "戻る", name: 'back' %>
   </div>
+  <div class="search_for_status">
+    <%= f.label :status, 'ステータスで検索する' %>
+    <%= f.select :status, options_for_select(Task.statuses) %>
+  </div>
+  <%= f.submit '検索する' %><br>
+  <%= link_to "一覧を表示する", tasks_path %>
 <% end %>
 <table>
   <tr>
@@ -13,6 +18,7 @@
     <th><%= t('view.details') %></th>
     <th><%= t('view.limit') %></th>
     <th><%= t('view.created_date') %></th>
+    <th>ステータス</th>
   </tr>
   <% @tasks.each do |task| %>
   <tr>
@@ -20,6 +26,7 @@
     <td><%= task.details %></td>
     <td class="task_limit"><%= task.limit %></td>
     <td><%= l task.created_at %></td>
+    <td><%= task.status %></td>
     <td><%= link_to "詳細", task_path(task.id) %></td>
     <td><%= link_to "編集", edit_task_path(task.id) %></td>
     <td><%= link_to "削除", task_path(task.id), method: :delete, data: { confirm: "本当に削除しますか？" } %></td>

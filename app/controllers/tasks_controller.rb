@@ -1,10 +1,16 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
-    if params[:sort_expired]
+    if params[:sort_expired].present?
       @tasks = Task.all.order(limit: :desc)
-    elsif params[:title]
-      @tasks = Task.where('title Like(?)', "%#{params[:title]}%")
+    elsif params[:title].present? || params[:status].present?
+      if params[:title].present? && params[:status].present?
+        @tasks = Task.where('title Like(?)', "%#{params[:title]}%").where(status: params[:status])
+      elsif params[:title].present? && params[:status].blank?
+        @tasks = Task.where('title Like(?)', "%#{params[:title]}%")
+      elsif params[:title].blank? && params[:status].present?
+        @tasks = Task.where(status: params[:status])
+      end
     else
       @tasks = Task.all.order(created_at: :desc)
     end
@@ -45,7 +51,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :details, :limit)
+    params.require(:task).permit(:title, :details, :limit).merge(status: params[:task][:status].to_i)
   end
 
   def set_task
