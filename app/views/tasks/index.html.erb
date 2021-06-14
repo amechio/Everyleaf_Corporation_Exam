@@ -1,5 +1,12 @@
 <h1>タスク一覧</h1>
 <p><%= notice %></p>
+<%= form_with( model: @task, local: true, url: tasks_path, method: 'get' ) do |f| %>
+  <div class="search_form">
+    <%= f.label :title, 'タスク名で検索する' %>
+    <%= f.text_field :title %>
+    <%= f.submit '検索する' %> | <%= f.submit "戻る", name: 'back' %>
+  </div>
+<% end %>
 <table>
   <tr>
     <th><%= t('view.task') %></th>
