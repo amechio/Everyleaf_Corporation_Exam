@@ -5,11 +5,11 @@ class TasksController < ApplicationController
       @tasks = Task.all.by_limit
     elsif params[:title].present? || params[:status].present?
       if params[:title].present? && params[:status].present?
-        @tasks = Task.title_like(params[:title]).status_like(params[:status])
+        @tasks = Task.title_like(params[:title]).status_select(params[:status])
       elsif params[:title].present? && params[:status].blank?
         @tasks = Task.title_like(params[:title])
       elsif params[:title].blank? && params[:status].present?
-        @tasks = Task.status_like(params[:status])
+        @tasks = Task.status_select(params[:status])
       end
     else
       @tasks = Task.all.by_created_at
