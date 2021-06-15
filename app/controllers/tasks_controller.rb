@@ -3,13 +3,25 @@ class TasksController < ApplicationController
   def index
     if params[:sort_expired].present?
       @tasks = Task.all.by_limit
-    elsif params[:title].present? || params[:status].present?
+    elsif params[:title].present? || params[:status].present? || params[:priority].present?
       if params[:title].present? && params[:status].present?
-        @tasks = Task.title_like(params[:title]).status_select(params[:status])
+        if params[:priority].present?
+          @tasks = Task.title_like(params[:title]).select_status(params[:status]).select_priority(params[:priority])
+        elsif params[:priority].blank?
+          @tasks = Task.title_like(params[:title]).select_status(params[:status])
+        end
       elsif params[:title].present? && params[:status].blank?
-        @tasks = Task.title_like(params[:title])
+        if params[:priority].present?
+          @tasks = Task.title_like(params[:title]).select_priority(params[:priority])
+        elsif params[:priority].blank?
+          @tasks = Task.select_status(params[:title])
+        end
       elsif params[:title].blank? && params[:status].present?
-        @tasks = Task.status_select(params[:status])
+        if params[:priority].present?
+          @tasks = Task.select_status(params[:status]).select_priority(params[:priority])
+        elsif params[:priority].blank?
+          @taasks = Task.select_status(params[:status])
+        end
       end
     else
       @tasks = Task.all.by_created_at
@@ -51,7 +63,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :details, :limit).merge(status: params[:task][:status].to_i)
+    params.require(:task).permit(:title, :details, :limit).merge(status: params[:task][:status].to_i).merge(priority: params[:task][:priority].to_i)
   end
 
   def set_task
