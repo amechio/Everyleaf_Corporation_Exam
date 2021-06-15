@@ -1,9 +1,11 @@
 <h1>タスク詳細</h1>
 <%= notice %>
-<p><%= t('view.task') %>:<%= @task.title %></p>
-<p><%= t('view.details') %>:<%= @task.details %></p>
-<p>終了期限:<%= @task.limit %></p>
-<p>ステータス:<%= @task.status %></p>
-<p>優先順位:<%= @task.priority %></p>
-| <%= link_to "タスク一覧", tasks_path %> |
-<%= link_to "新規作成", new_task_path %> |
+<div class='show_contents'>
+  <p><%= t('view.task') %>:<%= @task.title %></p>
+  <p><%= t('view.details') %>:<%= @task.details %></p>
+  <p>終了期限:<%= @task.limit %></p>
+  <p>ステータス:<%= @task.status %></p>
+  <p>優先順位:<%= @task.priority %></p>
+</div>
+<%= link_to "タスク一覧", tasks_path, class: "link" %>
+<%= link_to "新規作成", new_task_path, class: 'link' %>

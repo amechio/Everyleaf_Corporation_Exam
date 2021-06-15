@@ -1,0 +1,111 @@
+#search_container {
+  margin: 1.5rem 0;
+  padding: 0 1.5rem 1.5rem 1.5rem;
+  border: solid 1px black;
+  border-radius: 2rem;
+  box-shadow:5px 5px 5px 5px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  width: 25rem;
+  position: relative;
+  left: 2rem;
+}
+.tasks_list th {
+  text-align: center;
+  padding: 2rem ;
+}
+.tasks_list td {
+  text-align: center;
+  padding: 2rem ;
+}
+.each_sorts {
+  padding: 3rem;
+  border: solid 1px black;
+  border-radius: 2rem;
+  box-shadow:5px 5px 5px 5px rgba(0, 0, 0, 0.2);
+  width: 68rem;
+  position: relative;
+  left: 2rem;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+.new_task {
+  border: solid 1px red;
+  border-radius: 2px;
+  color: red;
+  padding: 1rem;
+}
+.new_task:hover {
+  text-decoration: none;
+  background-color: #FFCCFF;
+  color: red;
+  font-weight: bold;
+}
+.indicate_task_list {
+  border: solid 1px green;
+  border-radius: 2px;
+  color: green;
+  padding: 1rem;
+}
+.indicate_task_list:hover {
+  text-decoration: none;
+  background-color: #99FF99;
+  color: green;
+  font-weight: bold;
+}
+.sort_by_limit {
+  border: solid 1px blue;
+  border-radius: 2px;
+  color: blue;
+  padding: 1rem;
+}
+.sort_by_limit:hover {
+  text-decoration: none;
+  background-color: #99FFFF;
+  color: blue;
+  font-weight: bold;
+}
+.sort_by_priority {
+  border: solid 1px orange;
+  border-radius: 2px;
+  color: orange;
+  padding: 1rem;
+}
+.sort_by_priority:hover {
+  text-decoration: none;
+  background-color: #FFFFCC;
+  color: orange;
+  font-weight: bold;
+}
+.each_headings {
+  border-top: solid 1px gray;
+  border-bottom: solid 1px gray;
+  box-shadow: 5px 5px 5px 5px #EEEEEE;
+}
+.each_contents {
+  border-bottom: solid 1px gray;
+  box-shadow:5px 5px 5px 5px #EEEEEE;
+}
+.show_link {
+  color: #550000;
+}
+.show_link:hover {
+  color: #550000;
+  font-weight: bold;
+  text-decoration: none;
+}
+.edit_link {
+  color: #005500;
+}
+.edit_link:hover {
+  color: #005500;
+  font-weight: bold;
+  text-decoration: none;
+}
+.delete_link {
+  color: #000055;
+}
+.delete_link:hover {
+  color: #000055;
+  font-weight: bold;
+  text-decoration: none;
+}

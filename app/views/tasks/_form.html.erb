@@ -1,7 +1,7 @@
 <%= form_with( model: @task, local: true ) do |f| %>
   <% if @task.errors.any? %>
     <div id="error_explanation">
-      <h2><%= @task.errors.count %>件のエラーがあります( T_T)＼(^-^ )</h2>
+      <h3><%= @task.errors.count %>件のエラーがあります</h3>
       <ul>
       <% @task.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -9,25 +9,27 @@
       </ul>
     </div>
   <% end %>
-  <div class="task_title">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
+  <div id="form_container">
+    <div class="title_form">
+      <%= f.label :title %><br>
+      <%= f.text_field :title %>
+    </div>
+    <div class="details_form">
+      <%= f.label :details %><br>
+      <%= f.text_area :details %>
+    </div>
+    <div class="limit_form">
+      <%= f.label :limit %><br>
+      <%= f.text_field :limit %>
+    </div>
+    <div class="status_form">
+      <%= f.label :status %>
+      <%= f.select :status, options_for_select(Task.statuses) %>
+    </div>
+    <div class="priority_form">
+      <%= f.label :priority %>
+      <%= f.select :priority, options_for_select(Task.priorities) %>
+    </div>
+    <%= f.submit '登録する' %>
   </div>
-  <div class="task_details">
-    <%= f.label :details %><br>
-    <%= f.text_area :details %>
-  </div>
-  <div class="task_limit">
-    <%= f.label :limit %><br>
-    <%= f.text_field :limit %>
-  </div>
-  <div class="task_status">
-    <%= f.label :status %>
-    <%= f.select :status, options_for_select(Task.statuses) %>
-  </div>
-  <div class="task_priority">
-    <%= f.label :priority %>
-    <%= f.select :priority, options_for_select(Task.priorities) %>
-  </div>
-  <%= f.submit '登録する' %>
 <% end %>
