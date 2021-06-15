@@ -14,8 +14,11 @@
     <%= f.select :priority, options_for_select(Task.priorities) %>
   </div>
   <%= f.submit '検索する' %><br>
-  <%= link_to "一覧を表示する", tasks_path %>
 <% end %>
+<%= link_to "タスクを登録する", new_task_path %>
+<%= link_to "一覧を表示する", tasks_path %>
+<%= link_to "終了期限でソートする", tasks_path(sort_limit: "true") %>
+<%= link_to '優先順位順でソートする', tasks_path(sort_priority: 'true') %>
 <table>
   <tr>
     <th><%= t('view.task') %></th>
@@ -39,6 +42,4 @@
   </tr>
   <% end %>
 </table>
-<%= link_to "タスクを登録する", new_task_path %>
-<%= link_to "終了期限でソートする", tasks_path(sort_limit: "true") %>
-<%= link_to '優先順位順でソートする', tasks_path(sort_priority: 'true') %>
+<%= paginate @tasks %>
