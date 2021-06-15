@@ -81,8 +81,9 @@ RSpec.describe 'タスク管理機能', type: :system do
   end
   describe '一覧表示機能' do
     before do
-      FactoryBot.create(:task, title: 'task', details: 'test', limit: '2021-06-20' )
-      FactoryBot.create(:second_task, title: 'task2', details: 'test2', limit: '2021-06-18')
+      visit new_task_path
+      FactoryBot.create(:task, title: 'task', details: 'test', limit: '2021-06-20', status: '完了', priority: '高' )
+      FactoryBot.create(:second_task, title: 'task2', details: 'test2', limit: '2021-06-18', status: '未着手', priority: '低' )
       visit tasks_path
     end
     context '一覧画面に遷移した場合' do
@@ -98,12 +99,20 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(task_list[1]).to have_content 'task'
       end
     end
-    context 'タスクをソートした場合' do
+    context 'タスクを終了期限でソートした場合' do
       it '終了期限が降順で並び替えられる' do
         click_on '終了期限でソートする'
         task_limit = all('.task_limit')
         expect(task_limit[0]).to have_content '2021-06-20'
         expect(task_limit[1]).to have_content '2021-06-18'
+      end
+    end
+    context 'タスクを優先順位順でソートした場合' do
+      it '優先順位順で並び変えられる' do
+        click_on '優先順位順でソートする'
+        task_priority = all('.task_priority')
+        expect(task_priority[0]).to have_content '高'
+        expect(task_priority[1]).to have_content '低'
       end
     end
   end
