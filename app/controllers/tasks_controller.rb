@@ -1,8 +1,10 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
-    if params[:sort_expired].present?
+    if params[:sort_limit].present?
       @tasks = Task.all.by_limit
+    elsif params[:sort_priority].present?
+      @tasks = Task.all.by_priority
     elsif params[:title].present? || params[:status].present? || params[:priority].present?
       if params[:title].present? && params[:status].present?
         if params[:priority].present?
