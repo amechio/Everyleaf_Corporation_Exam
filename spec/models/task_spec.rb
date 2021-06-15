@@ -12,16 +12,16 @@ describe 'タスクモデル機能', type: :model do
     end
     context 'scopeメソッドでタイトルの曖昧検索とステータス検索をした場合' do
       it 'ステータスに完全一致するタスクが絞り込まれる' do
-        expect(Task.status_select('完了')).to include(task)
-        expect(Task.status_select('着手中')).not_to include(task)
-        expect(Task.status_select('完了').count).to eq 2
+        expect(Task.select_status('完了')).to include(task)
+        expect(Task.select_status('着手中')).not_to include(task)
+        expect(Task.select_status('完了').count).to eq 2
       end
     end
     context 'scopeメソッドでタイトルの曖昧検索とステータス検索をした場合' do
       it '検索キーワードをタイトルに含み、かつステータスに完全一致するタスクが絞り込まれる' do
-        expect(Task.title_like('sample').status_select('完了')).to include(second_task)
-        expect(Task.title_like('task').status_select('未着手')).not_to include(second_task)
-        expect(Task.title_like('sample').status_select('完了').count).to eq 1
+        expect(Task.title_like('sample').select_status('完了')).to include(second_task)
+        expect(Task.title_like('task').select_status('未着手')).not_to include(second_task)
+        expect(Task.title_like('sample').select_status('完了').count).to eq 1
       end
     end
   end
