@@ -1,0 +1,33 @@
+html {
+  position: relative;
+  min-height: 100%;
+  font-size: 62.5%;
+}
+body {
+  text-align: left;
+}
+h1 {
+  text-align: center;
+  color: #136FFF;
+  font-weight: bolder;
+  box-shadow:5px 5px 5px 5px rgba(0, 0, 0, 0.2);
+  width: 25rem;
+  height: 50px;
+  margin: 1rem auto;
+  padding: 0.5rem;
+}
+.link {
+  color: red;
+  font-size: 1.5rem;
+  padding: 1rem;
+  border: solid 1px black;
+  box-shadow:5px 5px 5px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 2rem;
+  margin: 2rem;
+}
+.link:hover {
+  font-weight: bold;
+  color: red;
+  background-color: #FFF0F5;
+  text-decoration: none;
+}

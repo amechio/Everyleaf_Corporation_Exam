@@ -1,8 +1,33 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
-    @tasks = Task.all
-    @tasks = Task.all.order(created_at: :desc)
+    if params[:sort_limit].present?
+      @tasks = Task.all.by_limit.page(params[:page]).per(5)
+    elsif params[:sort_priority].present?
+      @tasks = Task.all.by_priority.page(params[:page]).per(5)
+    elsif params[:title].present? || params[:status].present? || params[:priority].present?
+      if params[:title].present? && params[:status].present?
+        if params[:priority].present?
+          @tasks = Task.title_like(params[:title]).select_status(params[:status]).select_priority(params[:priority]).page(params[:page]).per(5)
+        elsif params[:priority].blank?
+          @tasks = Task.title_like(params[:title]).select_status(params[:status]).page(params[:page]).per(5)
+        end
+      elsif params[:title].present? && params[:status].blank?
+        if params[:priority].present?
+          @tasks = Task.title_like(params[:title]).select_priority(params[:priority]).page(params[:page]).per(5)
+        elsif params[:priority].blank?
+          @tasks = Task.select_status(params[:title]).page(params[:page]).per(5)
+        end
+      elsif params[:title].blank? && params[:status].present?
+        if params[:priority].present?
+          @tasks = Task.select_status(params[:status]).select_priority(params[:priority]).page(params[:page]).per(5)
+        elsif params[:priority].blank?
+          @tasks = Task.select_status(params[:status]).page(params[:page]).per(5)
+        end
+      end
+    else
+      @tasks = Task.all.by_created_at.page(params[:page]).per(5)
+    end
   end
 
   def new
@@ -40,7 +65,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :details)
+    params.require(:task).permit(:title, :details, :limit).merge(status: params[:task][:status].to_i).merge(priority: params[:task][:priority].to_i)
   end
 
   def set_task
