@@ -9,5 +9,5 @@ class Task < ApplicationRecord
   scope :title_like, -> (title) { where('title Like ?', "%#{title}%") }
   scope :select_status, -> (status) { where(status: [status]) }
   scope :select_priority, -> (priority) { where(priority: [priority]) }
-  belngs_to :user
+  belongs_to :user
 end
