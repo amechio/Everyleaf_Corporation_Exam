@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :login_required, only: [:new, :create]
+  before_action :to_user_profile, only: [:new, :create]
   def new
     @user = User.new
   end
@@ -18,5 +19,8 @@ class UsersController < ApplicationController
   private
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+  def to_user_profile
+    redirect_to tasks_path, notice: "ログインしてます" if current_user
   end
 end

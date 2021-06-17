@@ -1,0 +1,36 @@
+<h1>ユーザー作成</h1>
+<%= form_with(model: @user, local: true, method: :post, url: admin_users_path) do |f| %>
+  <% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@user.errors.count, "件のエラーがあります。") %></h2>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+  <div class="registration_name">
+    <%= f.label :name, '氏名' %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="registration_email">
+    <%= f.label :email, 'メールアドレス' %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="registration_password">
+    <%= f.label :password, 'パスワード' %><br>
+    <%= f.password_field :password %>
+  </div>
+  <div class="registration_password_confirmation">
+    <%= f.label :password_confirmation, 'パスワードの再確認' %><br>
+    <%= f.password_field :password_confirmation %>
+  </div>
+  <div class="registration_authority">
+    <%= f.label :role, '権限' %><br>
+    <%= f.select :role, options_for_select(User.roles) %>
+  </div>
+  <%= f.submit '登録する' %>
+<% end %>
+
+<%= link_to 'ユーザー一覧', admin_users_path %>

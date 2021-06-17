@@ -1,3 +1,6 @@
 <h1><%= @user.name %>のページ</h1>
 <p>メールアドレス:<%= @user.email %></p>
 <%= link_to 'タスク一覧', tasks_path, class: 'link' %>
+<% if current_user.admin? %>
+  <%= link_to 'ユーザー一覧', admin_users_path, class: 'link' %>
+<% end %>
