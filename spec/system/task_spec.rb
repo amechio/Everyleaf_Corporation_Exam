@@ -1,12 +1,16 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
+  let!(:user) { FactoryBot.create(:user)}
+  let!(:task) { FactoryBot.create(:task, user_id: user.id) }
+  let!(:second_task) { FactoryBot.create(:second_task, user_id: user.id) }
+  before do
+    visit new_session_path
+    fill_in 'メールアドレス', with: 'test@test.com'
+    fill_in 'パスワード', with: 'testdayo'
+    click_on 'commit'
+    visit tasks_path
+  end
   describe '検索機能' do
-    before do
-      visit new_task_path
-      FactoryBot.create(:task, title: "task", status: '完了', priority: '高')
-      FactoryBot.create(:second_task, title: "task2", status: '未着手', priority: '低')
-      visit tasks_path
-    end
     context 'タイトルで曖昧検索をした場合' do
       it '検索キーワードを含むタスクで絞りこまれる' do
         fill_in 'タスク名', with: 'task'
@@ -80,12 +84,6 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
   end
   describe '一覧表示機能' do
-    before do
-      visit new_task_path
-      FactoryBot.create(:task, title: 'task', details: 'test', limit: '2021-06-20', status: '完了', priority: '高' )
-      FactoryBot.create(:second_task, title: 'task2', details: 'test2', limit: '2021-06-18', status: '未着手', priority: '低' )
-      visit tasks_path
-    end
     context '一覧画面に遷移した場合' do
       it '作成済みのタスク一覧が表示される' do
         expect(page).to have_content 'task'
@@ -102,28 +100,26 @@ RSpec.describe 'タスク管理機能', type: :system do
     context 'タスクを終了期限でソートした場合' do
       it '終了期限が降順で並び替えられる' do
         click_on '終了期限でソートする'
-        task_limit = all('.task_limit')
-        expect(task_limit[0]).to have_content '2021-06-20'
-        expect(task_limit[1]).to have_content '2021-06-18'
+        task_limit = all('.each_contents')
+        sleep 1
+        expect(task_limit[0]).to have_content '2021-06-30'
       end
     end
     context 'タスクを優先順位順でソートした場合' do
       it '優先順位順で並び変えられる' do
         click_on '優先順位順でソートする'
         task_priority = all('.task_priority')
+        sleep 1
         expect(task_priority[0]).to have_content '高'
-        expect(task_priority[1]).to have_content '低'
       end
     end
   end
   describe '詳細表示機能' do
      context '任意のタスク詳細画面に遷移した場合' do
        it '該当タスクの内容が表示される' do
-         task = FactoryBot.create(:task, title: 'task', details: 'test', limit: '2021-06-20')
          visit task_path(task.id)
          expect(page).to have_content 'task'
          expect(page).to have_content 'test'
-         expect(page).to have_content '2021-06-20'
        end
      end
   end
