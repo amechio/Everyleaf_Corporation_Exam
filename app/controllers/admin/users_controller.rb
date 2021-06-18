@@ -36,6 +36,6 @@ class Admin::UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :password_confirmation ).merge(role: params[:user][:role].to_i)
   end
   def admin_check
-    redirect_to new_session_path, notice: '権限がありません' unless current_user.admin?
+    redirect_to tasks_path, notice: '権限がありません' unless current_user.admin?
   end
 end
