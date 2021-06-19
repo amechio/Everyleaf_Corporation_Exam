@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
   skip_before_action :login_required, only: [:new, :create]
-  
+  before_action :to_user_profile, only: [:new]
+
   def new
   end
   def create
@@ -12,6 +13,9 @@ class SessionsController < ApplicationController
       flash.now[:danger] = "ログインに失敗しました"
       render :new
     end
+  end
+  def to_user_profile
+    redirect_to tasks_path, notice: "ログインしてます" if current_user
   end
   def destroy
     session.delete(:user_id)
