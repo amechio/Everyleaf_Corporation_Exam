@@ -1,0 +1,30 @@
+<h1><%= @user.name %>のページ</h1>
+<p>メールアドレス:<%= @user.email %></p>
+<div class='tasks_list container'>
+<h2>タスク一覧</h2>
+  <table>
+    <tr>
+      <th>タスク名</th>
+      <th>内容</th>
+      <th>終了期限</th>
+      <th>作成日</th>
+      <th>ステータス</th>
+      <th>優先順位</th>
+    </tr>
+    <% @user.tasks.each do |task| %>
+    <tr>
+      <td><%= task.title %></td>
+      <td><%= task.details %></td>
+      <td><%= task.limit %></td>
+      <td><%= l task.created_at %></td>
+      <td><%= task.status %></td>
+      <td><%= task.priority %></td>
+    </tr>
+    <% end %>
+  </table>
+</div>
+<%= link_to 'タスク一覧', tasks_path, class: 'link' %>
+<% if current_user.admin? %>
+  <%= link_to 'ユーザー一覧', admin_users_path, class: 'link' %>
+  <%= link_to 'ユーザー作成', new_admin_user_path, class: 'link' %>
+<% end %>
