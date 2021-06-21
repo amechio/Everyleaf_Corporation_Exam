@@ -30,6 +30,12 @@
       <%= f.label :priority %>
       <%= f.select :priority, options_for_select(Task.priorities) %>
     </div>
+    <div class='label_box'>
+      <% Label.all.each do |label| %>
+        <%= f.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id] %>
+        <label style="backkground-color: aquamarine"><%= label.name %></label>
+      <% end %>
+    </div>
     <%= f.submit '登録する' %>
   </div>
 <% end %>

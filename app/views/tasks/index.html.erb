@@ -15,6 +15,9 @@
       <%= f.label :priority, '優先順位' %><br>
       <%= f.select :priority, options_for_select(Task.priorities) %>
     </div>
+    <div class="search_for_label">
+      <%= f.select("label_id", Label.all.collect { |l| [ l.name, l.id ] }, include_blank: true ) %>
+    </div>
     <%= f.submit '検索する' %>
   </div>
 <% end %>
@@ -32,6 +35,7 @@
     <th class="col-md-2"><%= t('view.created_date') %></th>
     <th class="col-md-2">ステータス</th>
     <th class="col-md-2">優先順位</th>
+    <th class="col-md-2">ラベル</th>
   </tr>
   <% @tasks.each do |task| %>
     <tr class="each_contents row">
@@ -41,6 +45,11 @@
       <td class="col-md-2"><%= l task.created_at %></td>
       <td class="col-md-2"><%= task.status %></td>
       <td class="task_priority"><%= task.priority %></td>
+      <td>
+        <% task.labels.each do |label| %>
+          <%= label.name %>
+        <% end %>
+      </td>
       <td class="col-md-2"><%= link_to "詳細", task_path(task.id), class: 'show_link' %></td>
       <td class="col-md-2"><%= link_to "編集", edit_task_path(task.id), class: 'edit_link' %></td>
       <td class="col-md-2"><%= link_to "削除", task_path(task.id), method: :delete, data: { confirm: "本当に削除しますか？" }, class: 'delete_link' %></td>

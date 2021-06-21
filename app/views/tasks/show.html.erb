@@ -6,6 +6,10 @@
   <p>終了期限:<%= @task.limit %></p>
   <p>ステータス:<%= @task.status %></p>
   <p>優先順位:<%= @task.priority %></p>
+  <p>ラベル:
+    <% @task.labels.each do |label| %>
+      <%= label.name %>
+    <% end %></p>
 </div>
 <%= link_to "タスク一覧", tasks_path, class: "link" %>
 <%= link_to "新規作成", new_task_path, class: 'link' %>

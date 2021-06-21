@@ -5,20 +5,26 @@ class TasksController < ApplicationController
       @tasks = current_user.tasks.all.by_limit.page(params[:page]).per(5)
     elsif params[:sort_priority].present?
       @tasks = current_user.tasks.all.by_priority.page(params[:page]).per(5)
-    elsif params[:title].present? || params[:status].present? || params[:priority].present?
-      if params[:title].present? && params[:status].present?
+    elsif params[:title].present? || params[:status].present? || params[:priority].present? || params[:label_id].present?
+      if params[:title].present? && params[:status].present? && params[:label_id].present?
         if params[:priority].present?
-          @tasks = current_user.tasks.title_like(params[:title]).select_status(params[:status]).select_priority(params[:priority]).page(params[:page]).per(5)
+          @tasks = current_user.tasks.title_like(params[:title]).select_status(params[:status]).select_priority(params[:priority]).search_label(params[:label_id]).page(params[:page]).per(5)
         elsif params[:priority].blank?
-          @tasks = current_user.tasks.title_like(params[:title]).select_status(params[:status]).page(params[:page]).per(5)
+          @tasks = current_user.tasks.title_like(params[:title]).select_status(params[:status]).search_label(params[:label_id]).page(params[:page]).per(5)
         end
-      elsif params[:title].present? && params[:status].blank?
+      elsif params[:title].present? && params[:label_id].present? && params[:status].blank?
         if params[:priority].present?
-          @tasks = current_user.tasks.title_like(params[:title]).select_priority(params[:priority]).page(params[:page]).per(5)
+          @tasks = current_user.tasks.title_like(params[:title]).select_priority(params[:priority]).search_label(params[:label_id]).page(params[:page]).per(5)
         elsif params[:priority].blank?
-          @tasks = current_user.tasks.select_status(params[:title]).page(params[:page]).per(5)
+          @tasks = current_user.tasks.select_status(params[:title]).search_label(params[:label_id]).page(params[:page]).per(5)
         end
-      elsif params[:title].blank? && params[:status].present?
+      elsif params[:title].blank? && params[:status].present? && params[:label_id].present?
+        if params[:priority].present?
+          @tasks = current_user.tasks.select_status(params[:status]).select_priority(params[:priority]).search_label(params[:label_id]).page(params[:page]).per(5)
+        elsif params[:priority].blank?
+          @tasks = current_user.tasks.select_status(params[:status]).search_label(params[:label_id]).page(params[:page]).per(5)
+        end
+      elsif params[:title].blank? && params[:status].present? && params[:label_id].blank?
         if params[:priority].present?
           @tasks = current_user.tasks.select_status(params[:status]).select_priority(params[:priority]).page(params[:page]).per(5)
         elsif params[:priority].blank?
@@ -66,7 +72,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :details, :limit).merge(status: params[:task][:status].to_i).merge(priority: params[:task][:priority].to_i)
+    params.require(:task).permit(:title, :details, :limit, { label_ids: [] } ).merge(status: params[:task][:status].to_i).merge(priority: params[:task][:priority].to_i)
   end
 
   def set_task
