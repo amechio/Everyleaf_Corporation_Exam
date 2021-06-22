@@ -36,25 +36,9 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content 'task' && '完了' && '高'
       end
     end
-    context '優先順位で検索をした場合' do
-      it '優先順位が一致するタスクが絞り込まれる' do
-        select '高', from: '優先順位'
-        click_on '検索する'
-        expect(page).to have_content 'task' && '完了' && '高'
-      end
-    end
-    context '優先順位とステータスで検索した場合' do
-      it '選択した優先順位かつステータスで絞り込まれたタスクが表示される' do
-        select '低', from: '優先順位'
-        select '未着手', from: 'ステータス'
-        click_on '検索する'
-        expect(page).to have_content 'task2' && '未着手' && '低'
-      end
-    end
     context 'タイトルの曖昧検索と優先順位とステータスで検索した場合' do
       it '入力したタイトルかつ選択した優先順位かつステータスで絞り込まれたタスクが表示される' do
         fill_in 'タスク名', with: 'task2'
-        select '低', from: '優先順位'
         select '未着手', from: 'ステータス'
         click_on '検索する'
         expect(page).to have_content 'task2' && '未着手' && '低'
