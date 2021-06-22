@@ -1,39 +1,29 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
+    @tasks = current_user.tasks.by_created_at
     if params[:sort_limit].present?
-      @tasks = current_user.tasks.all.by_limit.page(params[:page]).per(5)
+      @tasks = current_user.tasks.all.by_limit
     elsif params[:sort_priority].present?
-      @tasks = current_user.tasks.all.by_priority.page(params[:page]).per(5)
-    elsif params[:title].present? || params[:status].present? || params[:priority].present? || params[:label_id].present?
-      if params[:title].present? && params[:status].present? && params[:label_id].present?
-        if params[:priority].present?
-          @tasks = current_user.tasks.title_like(params[:title]).select_status(params[:status]).select_priority(params[:priority]).search_label(params[:label_id]).page(params[:page]).per(5)
-        elsif params[:priority].blank?
-          @tasks = current_user.tasks.title_like(params[:title]).select_status(params[:status]).search_label(params[:label_id]).page(params[:page]).per(5)
-        end
-      elsif params[:title].present? && params[:label_id].present? && params[:status].blank?
-        if params[:priority].present?
-          @tasks = current_user.tasks.title_like(params[:title]).select_priority(params[:priority]).search_label(params[:label_id]).page(params[:page]).per(5)
-        elsif params[:priority].blank?
-          @tasks = current_user.tasks.select_status(params[:title]).search_label(params[:label_id]).page(params[:page]).per(5)
-        end
-      elsif params[:title].blank? && params[:status].present? && params[:label_id].present?
-        if params[:priority].present?
-          @tasks = current_user.tasks.select_status(params[:status]).select_priority(params[:priority]).search_label(params[:label_id]).page(params[:page]).per(5)
-        elsif params[:priority].blank?
-          @tasks = current_user.tasks.select_status(params[:status]).search_label(params[:label_id]).page(params[:page]).per(5)
-        end
-      elsif params[:title].blank? && params[:status].present? && params[:label_id].blank?
-        if params[:priority].present?
-          @tasks = current_user.tasks.select_status(params[:status]).select_priority(params[:priority]).page(params[:page]).per(5)
-        elsif params[:priority].blank?
-          @tasks = current_user.tasks.select_status(params[:status]).page(params[:page]).per(5)
-        end
-      end
+      @tasks = current_user.tasks.all.by_priority
+    elsif params[:label_id].present?
+      @tasks = current_user.tasks.joins(:labels).where(labels: {id: params[:label_id]})
+    elsif params[:status].present?
+      @tasks = current_user.tasks.select_status(params[:status])
+    elsif params[:title].present?
+      @tasks = current_user.tasks.title_like(params[:title])
+    elsif params[:title].present? && params[:status].present?
+      @tasks = current_user.tasks.title_like(params[:title]).select_status(params[:status])
+    elsif params[:status].present? && params[:label_id].present?
+      @tasks = current_user.tasks.select_status(params[:status]).joins(:labels).where(labels: {id: params[:label_id]})
+    elsif params[:title].present? && params[:label_id].present?
+      @tasks = current_user.tasks.title_like(params[:title]).joins(:labels).where(labels: {id: params[:label_id]})
+    elsif params[:title].present? && params[:status].present? && params[:label_id].present?
+      @tasks = current_user.tasks.title_like(params[:title]).select_status(params[:status]).joins(:labels).where(labels: {id: params[:label_id]})
     else
-      @tasks = current_user.tasks.by_created_at.page(params[:page]).per(5)
+      @tasks = current_user.tasks.by_created_at
     end
+    @tasks = @tasks.page(params[:page]).per(5)
   end
 
   def new

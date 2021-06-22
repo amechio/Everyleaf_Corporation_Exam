@@ -1,6 +1,6 @@
 <h1>タスク一覧</h1>
 <p><%= notice %></p>
-<%= form_with( model: @task, local: true, url: tasks_path, method: 'get' ) do |f| %>
+<%= form_with( model: @task, url: tasks_path, method: :get, local: true ) do |f| %>
   <div id = "search_container">
     <h4>[検索]</h4>
     <div class="search_for_title">
@@ -8,15 +8,12 @@
       <%= f.text_field :title %>
     </div>
     <div class="search_for_status">
-      <%= f.label :status, 'ステータス' %><br>
-      <%= f.select :status, options_for_select(Task.statuses) %>
-    </div>
-    <div class="search_for_priority:">
-      <%= f.label :priority, '優先順位' %><br>
-      <%= f.select :priority, options_for_select(Task.priorities) %>
+      <%= f.label :status, 'ステータス' %>
+      <%= f.select :status, options_for_select(Task.statuses), include_blank: "---", selected: "---" %>
     </div>
     <div class="search_for_label">
-      <%= f.select("label_id", Label.all.collect { |l| [ l.name, l.id ] }, include_blank: true ) %>
+      <%= f.label :label_id, 'ラベル' %>
+      <%= f.select("label_id", Label.all.pluck(:name, :id), {include_blank: '---'} ) %>
     </div>
     <%= f.submit '検索する' %>
   </div>
