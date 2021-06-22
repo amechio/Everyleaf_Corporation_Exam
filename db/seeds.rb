@@ -16,7 +16,7 @@ User.create! (
   [name: 'normal7', email: 'normal7@normal7.com',password: 'normal7',password_confirmation: 'normal7',role: 'normal'],
   [name: 'normal8', email: 'normal8@normal8.com',password: 'normal8',password_confirmation: 'normal8',role: 'normal'],
   [name: 'normal9', email: 'normal9@normal9.com',password: 'normal9',password_confirmation: 'normal9',role: 'normal'],
-  [name: 'normal10', email: 'normal10@normal10.com',password: 'normal10',password_confirmation: 'normal10',role: 'normal'],
+  [name: 'normal10', email: 'normal10@normal10.com',password: 'normal10',password_confirmation: 'normal10',role: 'normal']
 )
 
 10.times do |i|
@@ -34,6 +34,6 @@ Task.create!(
     { title: 'test7', details: 'test7', limit: Time.current, priority: '中', user_id: 4},
     { title: 'test8', details: 'test8', limit: Time.current, priority: '中', user_id: 4},
     { title: 'test9', details: 'test9', limit: Time.current, priority: '中', user_id: 4},
-    { title: 'test10', details: 'test10', limit: Time.current, priority: '中', user_id: 4},
+    { title: 'test10', details: 'test10', limit: Time.current, priority: '中', user_id: 4}
   ]
 )
