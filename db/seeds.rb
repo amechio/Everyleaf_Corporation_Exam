@@ -6,17 +6,19 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 User.create! (
-  [name: 'admin', email: 'admin@admin.com',password: 'admindayo',password_confirmation: 'admindayo',role: 'admin'],
-  [name: 'normal1', email: 'normal1@normal1.com',password: 'normal1',password_confirmation: 'normal1',role: 'normal'],
-  [name: 'normal2', email: 'normal2@normal2.com',password: 'normal2',password_confirmation: 'normal2',role: 'normal'],
-  [name: 'normal3', email: 'normal3@normal3.com',password: 'normal3',password_confirmation: 'normal3',role: 'normal'],
-  [name: 'normal4', email: 'normal4@normal4.com',password: 'normal4',password_confirmation: 'normal4',role: 'normal'],
-  [name: 'normal5', email: 'normal5@normal5.com',password: 'normal5',password_confirmation: 'normal5',role: 'normal'],
-  [name: 'normal6', email: 'normal6@normal6.com',password: 'normal6',password_confirmation: 'normal6',role: 'normal'],
-  [name: 'normal7', email: 'normal7@normal7.com',password: 'normal7',password_confirmation: 'normal7',role: 'normal'],
-  [name: 'normal8', email: 'normal8@normal8.com',password: 'normal8',password_confirmation: 'normal8',role: 'normal'],
-  [name: 'normal9', email: 'normal9@normal9.com',password: 'normal9',password_confirmation: 'normal9',role: 'normal'],
-  [name: 'normal10', email: 'normal10@normal10.com',password: 'normal10',password_confirmation: 'normal10',role: 'normal']
+  [
+    { name: 'admin', email: 'admin2@admin2.com',password: 'admindayo',password_confirmation: 'admindayo',role: 1 },
+    { name: 'normal1', email: 'normal1@normal1.com',password: 'normal1',password_confirmation: 'normal1',role: 0 },
+    { name: 'normal2', email: 'normal2@normal2.com',password: 'normal2',password_confirmation: 'normal2',role: 0 },
+    { name: 'normal3', email: 'normal3@normal3.com',password: 'normal3',password_confirmation: 'normal3',role: 0 },
+    { name: 'normal4', email: 'normal4@normal4.com',password: 'normal4',password_confirmation: 'normal4',role: 0 },
+    { name: 'normal5', email: 'normal5@normal5.com',password: 'normal5',password_confirmation: 'normal5',role: 0 },
+    { name: 'normal6', email: 'normal6@normal6.com',password: 'normal6',password_confirmation: 'normal6',role: 0 },
+    { name: 'normal7', email: 'normal7@normal7.com',password: 'normal7',password_confirmation: 'normal7',role: 0 },
+    { name: 'normal8', email: 'normal8@normal8.com',password: 'normal8',password_confirmation: 'normal8',role: 0 },
+    { name: 'normal9', email: 'normal9@normal9.com',password: 'normal9',password_confirmation: 'normal9',role: 0 },
+    { name: 'normal10', email: 'normal10@normal10.com',password: 'normal10',password_confirmation: 'normal10',role: 0 }
+  ]
 )
 
 10.times do |i|
