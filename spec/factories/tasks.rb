@@ -7,6 +7,10 @@ FactoryBot.define do
     status { '完了' }
     priority { '高' }
     association :user
+    after(:build) do |task|
+      label = create(:label)
+      task.labellings << build(:labelling, task: task, label: label)
+    end
   end
   factory :second_task, class: Task do
     title { 'task2' }

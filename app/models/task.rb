@@ -8,6 +8,8 @@ class Task < ApplicationRecord
   scope :by_created_at, -> { order(created_at: :desc) }
   scope :title_like, -> (title) { where('title Like ?', "%#{title}%") }
   scope :select_status, -> (status) { where(status: [status]) }
-  scope :select_priority, -> (priority) { where(priority: [priority]) }
+  scope :search_label, -> (label_id) { joins(:labels).where(id: [label_id]) }
   belongs_to :user
+  has_many :labellings, dependent: :destroy
+  has_many :labels, through: :labellings
 end
